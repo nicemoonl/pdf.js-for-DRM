@@ -1,3 +1,15 @@
+# PDF.js for MMIS
+
+This is a forked version of PDF.js (v3.11) with custom UI modifications for MMIS. The original project can be found at [mozilla/pdf.js](https://github.com/mozilla/pdf.js).
+
+## Building Requirements
+- Node.js v18.x LTS (recommended for building with gulp)
+
+## Output files
+Output files are in the directory 'build/generic'.
+
+# Original Readme content below
+
 # PDF.js [![Build Status](https://github.com/mozilla/pdf.js/workflows/CI/badge.svg?branch=master)](https://github.com/mozilla/pdf.js/actions?query=workflow%3ACI+branch%3Amaster)
 
 [PDF.js](https://mozilla.github.io/pdf.js/) is a Portable Document Format (PDF) viewer that is built with HTML5.
