@@ -84,7 +84,8 @@
   --toolbarButton-editorStamp-icon: url(images/toolbarButton-editorStamp.svg);
   --toolbarButton-menuArrow-icon: url(images/toolbarButton-menuArrow.svg);
   --toolbarButton-sidebarToggle-icon: url(images/toolbarButton-sidebarToggle.svg);
-  --toolbarButton-secondaryToolbarToggle-icon: url(images/toolbarButton-secondaryToolbarToggle.svg);
+  --toolbarButton-fullscreenToggle-icon: url(images/toolbarButton-presentationMode.svg); /* mmis-custom: custom fullscreen button icon */
+  --toolbarButton-secondaryToolbarToggle-icon: url(images/toolbarButton-secondaryToolbarToggleSetting.png); /* mmis-custom: custom secondary toolbar toggle button icon */
   --toolbarButton-pageUp-icon: url(images/toolbarButton-pageUp.svg);
   --toolbarButton-pageDown-icon: url(images/toolbarButton-pageDown.svg);
   --toolbarButton-zoomOut-icon: url(images/toolbarButton-zoomOut.svg);
@@ -238,7 +239,7 @@ body {
   background-color: rgba(0, 0, 0, 1);
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: auto; /* mmis-custom: custom overflow */
   cursor: none;
   user-select: none;
 }
@@ -875,6 +876,13 @@ body {
   transform: scaleX(var(--dir-factor));
 }
 
+/* mmis-custom: custom fullscreen button */
+#fullscreenToggle::before {
+  -webkit-mask-image: var(--toolbarButton-fullscreenToggle-icon);
+          mask-image: var(--toolbarButton-fullscreenToggle-icon);
+  transform: scaleX(var(--dir-factor));
+}
+
 #secondaryToolbarToggle::before {
   mask-image: var(--toolbarButton-secondaryToolbarToggle-icon);
   transform: scaleX(var(--dir-factor));
@@ -1058,6 +1066,17 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
   mask-image: var(--secondaryToolbarButton-spreadEven-icon);
 }
 
+/* mmis-custom: custom reverse spread mode buttons */
+#spreadOddReverse::before {
+  -webkit-mask-image: var(--secondaryToolbarButton-spreadOdd-icon);
+          mask-image: var(--secondaryToolbarButton-spreadOdd-icon);
+}
+
+#spreadEvenReverse::before {
+  -webkit-mask-image: var(--secondaryToolbarButton-spreadEven-icon);
+          mask-image: var(--secondaryToolbarButton-spreadEven-icon);
+}
+
 #documentProperties::before {
   mask-image: var(--secondaryToolbarButton-documentProperties-icon);
 }
@@ -1102,7 +1121,7 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
 #pageNumber {
   -moz-appearance: textfield; /* hides the spinner in moz */
   text-align: end;
-  width: 40px;
+  width: 33px;
   background-size: 0 0;
   transition-property: none;
 }
@@ -1157,6 +1176,7 @@ a:is(.toolbarButton, .secondaryToolbarButton)[href="#"] {
 #thumbnailView {
   width: calc(100% - 60px);
   padding: 10px 30px 0;
+  display: ruby; /* mmis-custom: custom display for thumbnail view */
 }
 
 #thumbnailView > a:is(:active, :focus) {
@@ -1481,7 +1501,7 @@ dialog :link {
 @media all and (max-width: 690px) {
   .hiddenSmallView,
   .hiddenSmallView * {
-    display: none;
+    /* display: none; */ /* mmis-custom: disable hide some hidden items in small view */
   }
   .toolbarButtonSpacer {
     width: 0;
@@ -1494,5 +1514,36 @@ dialog :link {
 @media all and (max-width: 560px) {
   #scaleSelectContainer {
     display: none;
+  }
+}
+
+/* mmis-custom: custom for very small view */
+@media all and (max-width: 350px) {
+  #mainContainer {
+    min-width: 280px;
+  }
+  .toolbarButton, .secondaryToolbarButton, .dialogButton {
+    width: 24px;
+    height: 24px;
+  }
+  .toolbarButton, .dropdownToolbarButton, .secondaryToolbarButton, .dialogButton {
+    padding: 2px 4px 0;
+  }
+  #pageNumber{
+    width: 27px;
+  }
+  .toolbarField{
+    padding: 4px;
+    font-size: 14px !important;
+  }
+  .toolbarLabel{
+    padding: 7px 0px;
+  }
+  .toolbarButton::before, 
+  .secondaryToolbarButton::before,
+  .dropdownToolbarButton::after, 
+  .treeItemToggler::before {
+    width: 14px;
+    height: 14px;
   }
 }

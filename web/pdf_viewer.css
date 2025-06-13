@@ -139,6 +139,12 @@
   margin-inline: var(--spreadHorizontalWrapped-margin-LR);
 }
 
+/* mmis-custom: custom margin */
+.spread .page {
+  border: none;
+  margin: 5px 0;
+}
+
 /*#if GENERIC*/
 .pdfViewer.removePageBorders .spread .page,
 .pdfViewer.removePageBorders:is(.scrollHorizontal, .scrollWrapped) .page {

@@ -382,11 +382,26 @@ class PDFSidebar {
     this.eventBus._on("outlineloaded", evt => {
       onTreeLoaded(evt.outlineCount, this.outlineButton, SidebarView.OUTLINE);
 
+      // mmis-custom: hide viewOutline button
+      const viewLayersButton = document.getElementById("viewOutline");
+      if (viewLayersButton && viewLayersButton.hasAttribute("disabled")) {
+        viewLayersButton.removeAttribute("disabled");
+        viewLayersButton.style.display = "none";
+      }
+
       evt.currentOutlineItemPromise.then(enabled => {
         if (!this.isInitialViewSet) {
           return;
         }
         this._currentOutlineItemButton.disabled = !enabled;
+
+        // mmis-custom: hide currentOutlineItem button
+        const currentOutlineItem =
+          document.getElementById("currentOutlineItem");
+        if (currentOutlineItem && currentOutlineItem.hasAttribute("disabled")) {
+          currentOutlineItem.removeAttribute("disabled");
+          currentOutlineItem.style.display = "none";
+        }
       });
     });
 
@@ -396,10 +411,27 @@ class PDFSidebar {
         this.attachmentsButton,
         SidebarView.ATTACHMENTS
       );
+
+      // mmis-custom: hide viewAttachments button
+      const viewAttachmentsButton = document.getElementById("viewAttachments");
+      if (
+        viewAttachmentsButton &&
+        viewAttachmentsButton.hasAttribute("disabled")
+      ) {
+        viewAttachmentsButton.removeAttribute("disabled");
+        viewAttachmentsButton.style.display = "none";
+      }
     });
 
     this.eventBus._on("layersloaded", evt => {
       onTreeLoaded(evt.layersCount, this.layersButton, SidebarView.LAYERS);
+
+      // mmis-custom: hide viewLayers button
+      const viewLayersButton = document.getElementById("viewLayers");
+      if (viewLayersButton && viewLayersButton.hasAttribute("disabled")) {
+        viewLayersButton.removeAttribute("disabled");
+        viewLayersButton.style.display = "none";
+      }
     });
 
     // Update the thumbnailViewer, if visible, when exiting presentation mode.

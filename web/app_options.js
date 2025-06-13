@@ -218,7 +218,7 @@ const defaultOptions = {
   },
   disableAutoFetch: {
     /** @type {boolean} */
-    value: false,
+    value: true, // mmis-custom: disable auto fetch
     kind: OptionKind.API + OptionKind.PREFERENCE,
   },
   disableFontFace: {

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-const DEFAULT_SCALE_VALUE = "auto";
+const DEFAULT_SCALE_VALUE = "page-fit"; // mmis-custom: change default scale to "page-fit"
 const DEFAULT_SCALE = 1.0;
 const DEFAULT_SCALE_DELTA = 1.1;
 const MIN_SCALE = 0.1;
@@ -65,6 +65,8 @@ const SpreadMode = {
   NONE: 0, // Default value.
   ODD: 1,
   EVEN: 2,
+  ODDREVERSE: 3, // mmis-custom: add SpreadMode ODDREVERSE
+  EVENREVERSE: 4, // mmis-custom: add SpreadMode EVENREVERSE
 };
 
 const CursorTool = {

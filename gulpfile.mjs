@@ -991,6 +991,11 @@ function buildGeneric(defines, dir) {
     gulp
       .src("web/compressed.tracemonkey-pldi-09.pdf")
       .pipe(gulp.dest(dir + "web")),
+
+    // mmis-custom: add custom plugin for pinch to zoom
+    gulp
+      .src("web/pinch-to-zoom.js")
+      .pipe(gulp.dest(dir + "web")),
   ]);
 }
 

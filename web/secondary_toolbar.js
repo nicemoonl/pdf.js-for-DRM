@@ -58,6 +58,7 @@ class SecondaryToolbar {
    */
   constructor(options, eventBus) {
     this.toolbar = options.toolbar;
+    this.fullscreenButton = options.fullscreenButton; // mmis-custom: add additional fullscreen button
     this.toggleButton = options.toggleButton;
     this.buttons = [
       {
@@ -134,6 +135,24 @@ class SecondaryToolbar {
         eventDetails: { mode: SpreadMode.EVEN },
         close: true,
       },
+      // mmis-custom: add reverse spread mode buttons
+      {
+        element: options.spreadOddReverseButton,
+        eventName: "switchspreadmode",
+        eventDetails: {
+          mode: SpreadMode.ODDREVERSE,
+        },
+        close: true,
+      },
+      // mmis-custom: add reverse spread mode buttons
+      {
+        element: options.spreadEvenReverseButton,
+        eventName: "switchspreadmode",
+        eventDetails: {
+          mode: SpreadMode.EVENREVERSE,
+        },
+        close: true,
+      },
       {
         element: options.documentPropertiesButton,
         eventName: "documentproperties",
@@ -201,6 +220,13 @@ class SecondaryToolbar {
   }
 
   #bindClickListeners() {
+    // mmis-custom: add event handler for custom fullscreen button
+    this.fullscreenButton.addEventListener("click", evt => {
+      this.eventBus.dispatch("presentationmode", {
+        source: this,
+      });
+    });
+
     // Button to toggle the visibility of the secondary toolbar.
     this.toggleButton.addEventListener("click", this.toggle.bind(this));
 
@@ -239,6 +265,8 @@ class SecondaryToolbar {
     spreadNoneButton,
     spreadOddButton,
     spreadEvenButton,
+    spreadOddReverseButton, // mmis-custom: add reverse spread mode buttons
+    spreadEvenReverseButton, // mmis-custom: add reverse spread mode buttons
   }) {
     const scrollModeChanged = ({ mode }) => {
       toggleCheckedBtn(scrollPageButton, mode === ScrollMode.PAGE);
@@ -257,10 +285,14 @@ class SecondaryToolbar {
 
       // Temporarily *disable* the Spread buttons when horizontal scrolling is
       // enabled, since the non-default Spread modes doesn't affect the layout.
+      // mmis-custom: update for reverse spread mode
       const isHorizontal = mode === ScrollMode.HORIZONTAL;
-      spreadNoneButton.disabled = isHorizontal;
-      spreadOddButton.disabled = isHorizontal;
-      spreadEvenButton.disabled = isHorizontal;
+      const isWrapped = mode === ScrollMode.WRAPPED;
+      spreadNoneButton.disabled = isWrapped || isHorizontal;
+      spreadOddButton.disabled = isWrapped || isHorizontal;
+      spreadEvenButton.disabled = isWrapped || isHorizontal;
+      spreadOddReverseButton.disabled = isWrapped || isHorizontal;
+      spreadEvenReverseButton.disabled = isWrapped || isHorizontal;
     };
     this.eventBus._on("scrollmodechanged", scrollModeChanged);
 
@@ -275,11 +307,15 @@ class SecondaryToolbar {
     spreadNoneButton,
     spreadOddButton,
     spreadEvenButton,
+    spreadOddReverseButton, // mmis-custom: add reverse spread mode buttons
+    spreadEvenReverseButton, // mmis-custom: add reverse spread mode buttons
   }) {
     const spreadModeChanged = ({ mode }) => {
       toggleCheckedBtn(spreadNoneButton, mode === SpreadMode.NONE);
       toggleCheckedBtn(spreadOddButton, mode === SpreadMode.ODD);
       toggleCheckedBtn(spreadEvenButton, mode === SpreadMode.EVEN);
+      toggleCheckedBtn(spreadOddReverseButton, mode === SpreadMode.ODDREVERSE); // mmis-custom: add reverse spread mode buttons
+      toggleCheckedBtn(spreadEvenReverseButton, mode === SpreadMode.EVENREVERSE); // mmis-custom: add reverse spread mode buttons
     };
     this.eventBus._on("spreadmodechanged", spreadModeChanged);
 

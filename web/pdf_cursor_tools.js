@@ -156,7 +156,7 @@ class PDFCursorTools {
       if (state === PresentationModeState.NORMAL) {
         enableActive();
       } else if (state === PresentationModeState.FULLSCREEN) {
-        disableActive();
+        // disableActive(); // mmis-custom: disable active tool in presentation mode
       }
     });
   }

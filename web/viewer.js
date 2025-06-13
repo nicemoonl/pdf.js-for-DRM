@@ -71,6 +71,7 @@ function getViewerConfiguration() {
     },
     secondaryToolbar: {
       toolbar: document.getElementById("secondaryToolbar"),
+      fullscreenButton: document.getElementById("fullscreenToggle"), // mmis-custom: add additional fullscreen button
       toggleButton: document.getElementById("secondaryToolbarToggle"),
       presentationModeButton: document.getElementById("presentationMode"),
       openFileButton:
@@ -93,6 +94,8 @@ function getViewerConfiguration() {
       spreadNoneButton: document.getElementById("spreadNone"),
       spreadOddButton: document.getElementById("spreadOdd"),
       spreadEvenButton: document.getElementById("spreadEven"),
+      spreadOddReverseButton: document.getElementById("spreadOddReverse"), // mmis-custom: add reverse spread mode buttons
+      spreadEvenReverseButton: document.getElementById("spreadEvenReverse"), // mmis-custom: add reverse spread mode buttons
       documentPropertiesButton: document.getElementById("documentProperties"),
     },
     sidebar: {

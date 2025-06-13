@@ -51,6 +51,7 @@ class PDFPresentationMode {
    */
   constructor({ container, pdfViewer, eventBus }) {
     this.container = container;
+    this.outerContainer = container.closest("#outerContainer"); // mmis-custom: get outer container
     this.pdfViewer = pdfViewer;
     this.eventBus = eventBus;
 
@@ -58,6 +59,31 @@ class PDFPresentationMode {
     this.mouseScrollTimeStamp = 0;
     this.mouseScrollDelta = 0;
     this.touchSwipeState = null;
+  }
+
+  /**
+   * Request the browser to enter fullscreen mode.
+   * @returns {Promise<boolean>} Indicating if the request was successful.
+   */
+  async requestFullscreenOnly() {
+    const { outerContainer, pdfViewer } = this;
+    if (
+      this.active ||
+      !pdfViewer.pagesCount ||
+      !outerContainer?.requestFullscreen
+    ) {
+      return false;
+    }
+    const promise = document.fullscreenElement
+      ? document.exitFullscreen()
+      : outerContainer.requestFullscreen();
+    try {
+      await promise;
+      pdfViewer.focus();
+      return true;
+    } catch (reason) {
+      return false;
+    }
   }
 
   /**
@@ -79,20 +105,21 @@ class PDFPresentationMode {
       pageNumber: pdfViewer.currentPageNumber,
       scaleValue: pdfViewer.currentScaleValue,
       scrollMode: pdfViewer.scrollMode,
-      spreadMode: null,
+      spreadMode: pdfViewer.spreadMode, // mmis-custom: keep spread mode when entering presentation mode
       annotationEditorMode: null,
     };
 
-    if (
-      pdfViewer.spreadMode !== SpreadMode.NONE &&
-      !(pdfViewer.pageViewsReady && pdfViewer.hasEqualPageSizes)
-    ) {
-      console.warn(
-        "Ignoring Spread modes when entering PresentationMode, " +
-          "since the document may contain varying page sizes."
-      );
-      this.#args.spreadMode = pdfViewer.spreadMode;
-    }
+    // mmis-custom: keep spread mode when entering presentation mode
+    // if (
+    //   pdfViewer.spreadMode !== SpreadMode.NONE &&
+    //   !(pdfViewer.pageViewsReady && pdfViewer.hasEqualPageSizes)
+    // ) {
+    //   console.warn(
+    //     "Ignoring Spread modes when entering PresentationMode, " +
+    //       "since the document may contain varying page sizes."
+    //   );
+    //   this.#args.spreadMode = pdfViewer.spreadMode;
+    // }
     if (pdfViewer.annotationEditorMode !== AnnotationEditorType.DISABLE) {
       this.#args.annotationEditorMode = pdfViewer.annotationEditorMode;
     }
@@ -116,7 +143,7 @@ class PDFPresentationMode {
   }
 
   #mouseWheel(evt) {
-    if (!this.active) {
+    if (!this.active || this.pdfViewer.scrollMode !== ScrollMode.PAGE) { // mmis-custom: disable mouse wheel if not in page mode
       return;
     }
     evt.preventDefault();
@@ -171,8 +198,20 @@ class PDFPresentationMode {
       if (this.#args.spreadMode !== null) {
         this.pdfViewer.spreadMode = SpreadMode.NONE;
       }
+      // mmis-custom: resume to previous scroll mode and spread mode
+      // after entering presentation mode (fullscreen mode)
+      setTimeout(() => {
+        this.pdfViewer.scrollMode = this.#args.scrollMode;
+        if (this.#args.spreadMode !== null) {
+          this.pdfViewer.spreadMode = this.#args.spreadMode;
+        }
+      }, 0);
       this.pdfViewer.currentPageNumber = this.#args.pageNumber;
-      this.pdfViewer.currentScaleValue = "page-fit";
+      if (this.#args.scrollMode !== ScrollMode.WRAPPED) {
+        // mmis-custom: change scale to page-fitif not in wrapped mode
+        // after entering presentation mode (fullscreen mode)
+        this.pdfViewer.currentScaleValue = "page-fit";
+      }
 
       if (this.#args.annotationEditorMode !== null) {
         this.pdfViewer.annotationEditorMode = {

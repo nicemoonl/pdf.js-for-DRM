@@ -8,6 +8,10 @@ This is a forked version of PDF.js (v3.11) with custom UI modifications for MMIS
 ## Output files
 Output files are in the directory 'build/generic'.
 
+## Build PDF.js with gulp
+
+    $ gulp generic
+
 # Original Readme content below
 
 # PDF.js [![Build Status](https://github.com/mozilla/pdf.js/workflows/CI/badge.svg?branch=master)](https://github.com/mozilla/pdf.js/actions?query=workflow%3ACI+branch%3Amaster)
