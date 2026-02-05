@@ -285,6 +285,11 @@ document.webL10n = (function(window, document, undefined) {
 
   // load and parse all resources for the specified locale
   function loadLocale(lang, callback) {
+    // custom language code
+    const locale = new URL(window.location.href).searchParams.get('locale');
+    if (locale) {
+      lang = locale;
+    }
     // RFC 4646, section 2.1 states that language tags have to be treated as
     // case-insensitive. Convert to lowercase for case-insensitive comparisons.
     if (lang) {
