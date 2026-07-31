@@ -1,5 +1,6 @@
 # development
 
+remove the folder "noed_modules" and run `npm install` 
 run `npx http-server` and open `viewer.html` for development and testing
 
 # build project
