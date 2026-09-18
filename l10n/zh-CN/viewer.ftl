@@ -17,11 +17,11 @@ pdfjs-page-input =
 # Variables:
 #   $pagesCount (Number) - the total number of pages in the document
 # This string follows an input field with the number of the page currently displayed.
-pdfjs-of-pages = 页，共 { $pagesCount } 页
+pdfjs-of-pages = / { $pagesCount } 页
 # Variables:
 #   $pageNumber (Number) - the currently visible page
 #   $pagesCount (Number) - the total number of pages in the document
-pdfjs-page-of-pages = （第 { $pageNumber } 页，共 { $pagesCount } 页）
+pdfjs-page-of-pages = （第 { $pageNumber } / { $pagesCount } 页）
 pdfjs-zoom-out-button =
     .title = 缩小
 pdfjs-zoom-out-button-label = 缩小
@@ -244,7 +244,7 @@ pdfjs-find-match-count = 第 { $current } 项，共找到 { $total } 个匹配�
 # Variables:
 #   $limit (Number) - the maximum number of matches
 pdfjs-find-match-count-limit = 匹配超过 { $limit } 项
-pdfjs-find-not-found = 找不到指定词语
+pdfjs-find-not-found = 没有找到匹配项
 
 ## Predefined zoom values
 

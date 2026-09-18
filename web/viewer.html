@@ -182,7 +182,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                       </div>
                     </div>
                     <div id="findbarOptionsTwoContainer" class="toolbarHorizontalGroup">
-                      <div class="toggleButton toolbarLabel">
+                      <div class="toggleButton toolbarLabel" style="display: none;">
                         <input type="checkbox" id="findMatchDiacritics" tabindex="0" />
                         <label for="findMatchDiacritics" data-l10n-id="pdfjs-find-match-diacritics-checkbox-label"></label>
                       </div>
@@ -347,11 +347,11 @@ See https://github.com/adobe-type-tools/cmap-resources
 
                 <div class="verticalToolbarSeparator hiddenMediumView"></div>
 
-                <button id="cursorSelectToolTop" class="toolbarButton toggled" type="button" tabindex="0" data-l10n-id="pdfjs-cursor-text-select-tool-button" role="radio" aria-checked="true">
+                <button id="cursorSelectToolTop" class="toolbarButton toggled mobile-hidden" type="button" tabindex="0" data-l10n-id="pdfjs-cursor-text-select-tool-button" role="radio" aria-checked="true">
                   <span data-l10n-id="pdfjs-cursor-text-select-tool-button-label"></span>
                 </button>
 
-                <button id="cursorHandToolTop" class="toolbarButton" type="button" tabindex="0" data-l10n-id="pdfjs-cursor-hand-tool-button" role="radio" aria-checked="false">
+                <button id="cursorHandToolTop" class="toolbarButton mobile-hidden" type="button" tabindex="0" data-l10n-id="pdfjs-cursor-hand-tool-button" role="radio" aria-checked="false">
                   <span data-l10n-id="pdfjs-cursor-hand-tool-button-label"></span>
                 </button>
 
@@ -372,11 +372,11 @@ See https://github.com/adobe-type-tools/cmap-resources
 <!--#endif-->
 
                       <div class="visibleMediumView" style="display: none;">
-                        <button id="secondaryPrint" class="toolbarButton labeled" type="button" tabindex="0" data-l10n-id="pdfjs-print-button">
+                        <button id="secondaryPrint" class="toolbarButton labeled" type="button" tabindex="0" data-l10n-id="pdfjs-print-button" style="display: none;">
                           <span data-l10n-id="pdfjs-print-button-label"></span>
                         </button>
 
-                        <button id="secondaryDownload" class="toolbarButton labeled" type="button" tabindex="0" data-l10n-id="pdfjs-save-button">
+                        <button id="secondaryDownload" class="toolbarButton labeled" type="button" tabindex="0" data-l10n-id="pdfjs-save-button" style="display: none;">
                           <span data-l10n-id="pdfjs-save-button-label"></span>
                         </button>
 

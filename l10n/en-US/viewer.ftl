@@ -237,7 +237,7 @@ pdfjs-find-next-button-label = Next
 pdfjs-find-highlight-checkbox = Highlight All
 pdfjs-find-match-case-checkbox-label = Match Case
 pdfjs-find-match-diacritics-checkbox-label = Match Diacritics
-pdfjs-find-entire-word-checkbox-label = Whole Words
+pdfjs-find-entire-word-checkbox-label = Whole Words Only
 pdfjs-find-reached-top = Reached top of document, continued from bottom
 pdfjs-find-reached-bottom = Reached end of document, continued from top
 
@@ -258,7 +258,7 @@ pdfjs-find-match-count-limit =
        *[other] More than { $limit } matches
     }
 
-pdfjs-find-not-found = Phrase not found
+pdfjs-find-not-found = No matches were found
 
 ## Predefined zoom values
 

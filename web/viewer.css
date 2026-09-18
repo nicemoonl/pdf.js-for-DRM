@@ -1690,6 +1690,9 @@ body.mob .hidden-in-mob {
   #scaleSelectContainer {
     display: none;
   }
+  .mobile-hidden {
+    display: none !important;
+  }
 }
 
 @media all and (max-width: 350px) {

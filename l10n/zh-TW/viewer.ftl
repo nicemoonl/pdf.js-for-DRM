@@ -17,11 +17,11 @@ pdfjs-page-input =
 # Variables:
 #   $pagesCount (Number) - the total number of pages in the document
 # This string follows an input field with the number of the page currently displayed.
-pdfjs-of-pages = 頁，共 { $pagesCount } 頁
+pdfjs-of-pages = / { $pagesCount } 頁
 # Variables:
 #   $pageNumber (Number) - the currently visible page
 #   $pagesCount (Number) - the total number of pages in the document
-pdfjs-page-of-pages = （第 { $pageNumber } 頁，共 { $pagesCount } 頁）
+pdfjs-page-of-pages = （第 { $pageNumber } / { $pagesCount } 頁）
 pdfjs-zoom-out-button =
     .title = 縮小
 pdfjs-zoom-out-button-label = 縮小
@@ -231,10 +231,10 @@ pdfjs-find-previous-button-label = 上一個
 pdfjs-find-next-button =
     .title = 尋找文字下次出現的位置
 pdfjs-find-next-button-label = 下一個
-pdfjs-find-highlight-checkbox = 強調全部
-pdfjs-find-match-case-checkbox-label = 區分大小寫
+pdfjs-find-highlight-checkbox = 全部螢光標示
+pdfjs-find-match-case-checkbox-label = 大小寫須相符
 pdfjs-find-match-diacritics-checkbox-label = 符合變音符號
-pdfjs-find-entire-word-checkbox-label = 符合整個字
+pdfjs-find-entire-word-checkbox-label = 全字拼寫須相符
 pdfjs-find-reached-top = 已搜尋至文件頂端，自底端繼續搜尋
 pdfjs-find-reached-bottom = 已搜尋至文件底端，自頂端繼續搜尋
 # Variables:
@@ -244,7 +244,7 @@ pdfjs-find-match-count = 第 { $current } 筆符合，共符合 { $total } 筆
 # Variables:
 #   $limit (Number) - the maximum number of matches
 pdfjs-find-match-count-limit = 符合超過 { $limit } 項
-pdfjs-find-not-found = 找不到指定文字
+pdfjs-find-not-found = 沒有找到匹配項
 
 ## Predefined zoom values
 
