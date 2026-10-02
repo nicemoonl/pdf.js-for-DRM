@@ -1,6 +1,7 @@
 # development
 
-remove the folder "noed_modules" and run `npm install` 
+switch to node version 23 by running `nvm use 23`
+remove the folder "node_modules" and run `npm install` 
 run `npx http-server` and open `viewer.html` for development and testing
 
 # build project
