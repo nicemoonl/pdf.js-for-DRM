@@ -1089,6 +1089,29 @@ const PDFViewerApplication = {
     } else if (PDFJSDev.test("MOZCENTRAL || CHROME")) {
       params.docBaseUrl ||= this.baseUrl;
     }
+
+    // MMIS custom start: use Content-Range instead of Content-Length in header for the total length of the file
+    if (typeof args.url === "string" && !params.length) {
+      try {
+        const probeResponse = await fetch(args.url, {
+          method: "GET",
+          headers: Object.assign({}, params.httpHeaders || {}, {
+            "Range": "bytes=0-0"
+          })
+        });
+    
+        if (probeResponse.status === 206) {
+          const contentRange = probeResponse.headers.get("Content-Range");
+          const matches = /bytes \d+-\d+\/(\d+)/.exec(contentRange);
+    
+          if (matches) {
+            params.length = parseInt(matches[1], 10);
+          }
+        }
+      } catch (e) {}
+    }
+    // MMIS custom end
+
     const loadingTask = getDocument(params);
     this.pdfLoadingTask = loadingTask;
 

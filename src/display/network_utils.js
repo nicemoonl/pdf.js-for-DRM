@@ -38,12 +38,29 @@ function validateRangeRequestCapabilities({
     suggestedLength: undefined,
   };
 
-  const length = parseInt(getResponseHeader("Content-Length"), 10);
-  if (!Number.isInteger(length)) {
-    return returnValues;
+  // MMIS custom start: use Content-Range instead of Content-Length in header for the total length of the file
+  const contentRange = getResponseHeader("Content-Range");
+
+  if (contentRange) {
+    const matches = /bytes \d+-\d+\/(\d+)/.exec(contentRange);
+
+    if (matches) {
+      returnValues.suggestedLength = parseInt(matches[1], 10);
+    }
   }
 
-  returnValues.suggestedLength = length;
+  if (returnValues.suggestedLength === undefined) {
+    const length = parseInt(getResponseHeader("Content-Length"), 10);
+
+    if (!Number.isInteger(length)) {
+      return returnValues;
+    }
+
+    returnValues.suggestedLength = length;
+  }
+
+  const length = returnValues.suggestedLength;
+  // MMIS custom end
 
   if (length <= 2 * rangeChunkSize) {
     // The file size is smaller than the size of two chunks, so it does not
