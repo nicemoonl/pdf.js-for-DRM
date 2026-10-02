@@ -1139,6 +1139,29 @@ const PDFViewerApplication = {
 
     // Set the necessary API parameters, using all the available options.
     const apiParams = AppOptions.getAll(OptionKind.API);
+
+    // MMIS custom start: use Content-Range instead of Content-Length in header for the total length of the file
+    if (typeof args.url === "string" && !apiParams.length) {
+      try {
+        const probeResponse = await fetch(args.url, {
+          method: "GET",
+          headers: Object.assign({}, apiParams.httpHeaders || {}, {
+            "Range": "bytes=0-0"
+          })
+        });
+
+        if (probeResponse.status === 206) {
+          const contentRange = probeResponse.headers.get("Content-Range");
+          const matches = /bytes \d+-\d+\/(\d+)/.exec(contentRange);
+
+          if (matches) {
+            apiParams.length = parseInt(matches[1], 10);
+          }
+        }
+      } catch (e) {}
+    }
+    // MMIS custom end
+
     const loadingTask = getDocument({
       ...apiParams,
       ...args,
