@@ -939,6 +939,28 @@ const PDFViewerApplication = {
       }
     }
 
+    // HKMP custom start: use Content-Range instead of Content-Length in header for the total length of the file, in order to increase the difficulty of whole file download
+    if (typeof file === "string" && !parameters.length) {
+      try {
+        const probeResponse = await fetch(file, {
+          method: "GET",
+          headers: Object.assign({}, parameters.httpHeaders || {}, {
+            "Range": "bytes=0-0"
+          })
+        });
+    
+        if (probeResponse.status === 206) {
+          const contentRange = probeResponse.headers.get("Content-Range");
+          const matches = /bytes \d+-\d+\/(\d+)/.exec(contentRange);
+    
+          if (matches) {
+            parameters.length = parseInt(matches[1], 10);
+          }
+        }
+      } catch (e) {}
+    }
+    // HKMP custom end
+
     const loadingTask = getDocument(parameters);
     this.pdfLoadingTask = loadingTask;
 

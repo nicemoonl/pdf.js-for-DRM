@@ -41,7 +41,30 @@ function validateRangeRequestCapabilities({
     suggestedLength: undefined,
   };
 
-  const length = parseInt(getResponseHeader("Content-Length"), 10);
+  // HKMP custom start: use Content-Range instead of Content-Length in header for the total length of the file, in order to increase the difficulty of whole file download
+  const contentRange = getResponseHeader("Content-Range");
+
+  if (contentRange) {
+    const matches = /bytes \d+-\d+\/(\d+)/.exec(contentRange);
+
+    if (matches) {
+      returnValues.suggestedLength = parseInt(matches[1], 10);
+    }
+  }
+
+  if (returnValues.suggestedLength === undefined) {
+    const length = parseInt(getResponseHeader("Content-Length"), 10);
+
+    if (!Number.isInteger(length)) {
+      return returnValues;
+    }
+
+    returnValues.suggestedLength = length;
+  }
+
+  const length = returnValues.suggestedLength;
+  // HKMP custom end
+
   if (!Number.isInteger(length)) {
     return returnValues;
   }
